@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
+// import mongoose from "mongoose";
 
 const BlogData = new mongoose.Schema({
     domain: {
@@ -29,4 +30,5 @@ const BlogData = new mongoose.Schema({
     timestamps: true,
 });
 
-export default mongoose.model("BlogData", BlogData);
+// export default mongoose.model("BlogData", BlogData);
+module.exports = mongoose.model("BlogData", BlogData);

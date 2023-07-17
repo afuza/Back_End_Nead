@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
+// import mongoose from "mongoose";
 
 const SitusData = new mongoose.Schema({
     situs: {
@@ -25,4 +26,5 @@ const SitusData = new mongoose.Schema({
     timestamps: true,
 });
 
-export default mongoose.model("SitusData", SitusData);
+// export default mongoose.model("SitusData", SitusData);
+module.exports = mongoose.model("SitusData", SitusData);

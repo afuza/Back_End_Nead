@@ -1,6 +1,7 @@
-import SitusData from "../models/SitusModels.js";
+const SitusData = require("../models/SitusModels.js");
+// import SitusData from "../models/SitusModels.js";
 
-export const getSitus = async (req, res) => {
+const getSitus = async (req, res) => {
     try {
         const situs = await SitusData.find();
         res.status(200).json(situs);
@@ -9,7 +10,7 @@ export const getSitus = async (req, res) => {
     }
 }
 
-export const getSitusById = async (req, res) => {
+const getSitusById = async (req, res) => {
     try {
         const situs = await SitusData.findById(req.params.id);
         res.status(200).json(situs);
@@ -18,7 +19,7 @@ export const getSitusById = async (req, res) => {
     }
 }
 
-export const createSitus = async (req, res) => {
+const createSitus = async (req, res) => {
     const situs = req.body;
     const newSitus = new SitusData(situs);
     try {
@@ -29,7 +30,7 @@ export const createSitus = async (req, res) => {
     }
 }
 
-export const updateSitus = async (req, res) => {
+const updateSitus = async (req, res) => {
     try {
         const situs = await SitusData.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.status(200).json(situs);
@@ -38,7 +39,7 @@ export const updateSitus = async (req, res) => {
     }
 }
 
-export const deleteSitus = async (req, res) => {
+const deleteSitus = async (req, res) => {
     try {
         const situs = await SitusData.findByIdAndDelete(req.params.id);
         res.status(200).json({ message: "Situs deleted successfully" });
@@ -47,3 +48,4 @@ export const deleteSitus = async (req, res) => {
     }
 }
 
+module.exports = { getSitus, createSitus, updateSitus, deleteSitus, getSitusById };

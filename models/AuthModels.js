@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
+// import mongoose from "mongoose";
 
 const AuthData = new mongoose.Schema({
     username: {
@@ -18,4 +19,5 @@ const AuthData = new mongoose.Schema({
     timestamps: true,
 });
 
-export default mongoose.model("AuthData", AuthData);
+// export default mongoose.model("AuthData", AuthData);
+module.exports = mongoose.model("AuthData", AuthData);

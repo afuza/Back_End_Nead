@@ -1,8 +1,12 @@
-import AtuhData from '../models/AuthModels.js';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+const AtuhData = require('../models/AuthModels.js');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-export const getAuth = async (req, res) => {
+// import AtuhData from '../models/AuthModels.js';
+// import bcrypt from 'bcrypt';
+// import jwt from 'jsonwebtoken';
+
+const getAuth = async (req, res) => {
     try {
         const authData = await AtuhData.find();
         res.status(200).json(authData);
@@ -12,7 +16,7 @@ export const getAuth = async (req, res) => {
 };
 
 
-export const login = async (req, res) => {
+const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await AtuhData.findOne({ email });
@@ -56,7 +60,7 @@ export const login = async (req, res) => {
     }
 };
 
-export const register = async (req, res) => {
+const register = async (req, res) => {
     try {
         const { username, password } = req.body;
         const user = await AtuhData.findOne({ username });
@@ -78,7 +82,7 @@ export const register = async (req, res) => {
     }
 };
 
-export const logout = async (req, res) => {
+const logout = async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
     try {
         if (!refreshToken) return res.status(204).json({ message: 'You are not logged in' });
@@ -94,7 +98,7 @@ export const logout = async (req, res) => {
     }
 };
 
-export const refresh_Token = async (req, res,) => {
+const refresh_Token = async (req, res,) => {
     const refreshToken = req.cookies.refreshToken;
     try {
         if (!refreshToken) return res.sendStatus(401);
@@ -125,3 +129,5 @@ export const refresh_Token = async (req, res,) => {
         res.status(500).json({ message: "Erorr" });
     }
 };
+
+module.exports = { getAuth, login, register, logout, refresh_Token };

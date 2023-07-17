@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
+// import mongoose from "mongoose";
 
 const EmailData = new mongoose.Schema({
     email: {
@@ -29,4 +30,5 @@ const EmailData = new mongoose.Schema({
     timestamps: true,
 });
 
-export default mongoose.model("EmailData", EmailData);
+// export default mongoose.model("EmailData", EmailData);
+module.exports = mongoose.model("EmailData", EmailData);

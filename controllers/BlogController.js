@@ -1,6 +1,7 @@
-import BlogData from "../models/BlogModels.js";
+const BlogData = require("../models/BlogModels.js");
+// import BlogData from "../models/BlogModels.js";
 
-export const getBlog = async (req, res) => {
+const getBlog = async (req, res) => {
     try {
         const blog = await BlogData.find();
         res.status(200).json(blog);
@@ -9,7 +10,7 @@ export const getBlog = async (req, res) => {
     }
 }
 
-export const createBlog = async (req, res) => {
+const createBlog = async (req, res) => {
     const blog = req.body;
     const newBlog = new BlogData(blog);
     try {
@@ -20,7 +21,7 @@ export const createBlog = async (req, res) => {
     }
 }
 
-export const updateBlog = async (req, res) => {
+const updateBlog = async (req, res) => {
     const blogId = req.params.id;
     const blog = req.body;
     try {
@@ -31,7 +32,7 @@ export const updateBlog = async (req, res) => {
     }
 }
 
-export const deleteBlog = async (req, res) => {
+const deleteBlog = async (req, res) => {
     const blogId = req.params.id;
     try {
         const deletedBlog = await BlogData.findByIdAndDelete(blogId);
@@ -41,7 +42,7 @@ export const deleteBlog = async (req, res) => {
     }
 }
 
-export const getBlogById = async (req, res) => {
+const getBlogById = async (req, res) => {
     const blogId = req.params.id;
     try {
         const blog = await BlogData.findById(blogId);
@@ -51,3 +52,5 @@ export const getBlogById = async (req, res) => {
     }
 }
 
+
+module.exports = { getBlog, createBlog, updateBlog, deleteBlog, getBlogById };
