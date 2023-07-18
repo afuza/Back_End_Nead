@@ -30,5 +30,4 @@ const BlogData = new mongoose.Schema({
     timestamps: true,
 });
 
-// export default mongoose.model("BlogData", BlogData);
 module.exports = mongoose.model("BlogData", BlogData);

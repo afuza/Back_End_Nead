@@ -1,5 +1,4 @@
 const BlogData = require("../models/BlogModels.js");
-// import BlogData from "../models/BlogModels.js";
 
 const getBlog = async (req, res) => {
     try {

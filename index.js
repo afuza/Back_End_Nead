@@ -9,20 +9,11 @@ const SitusRoute = require("./routes/SitusRoute.js");
 const BlogRoute = require("./routes/BlogRoute.js");
 const AuthRoute = require("./routes/AuthRoute.js");
 
-// import express from 'express';
-// import dotenv from "dotenv";
-// import mongoose from "mongoose";
-// import cors from "cors";
-// import cookieParser from "cookie-parser";
-// import EmailRoute from "./routes/EmailRoute.js";
-// import SitusRoute from "./routes/SitusRoute.js";
-// import BlogRoute from "./routes/BlogRoute.js";
-// import AuthRoute from "./routes/AuthRoute.js";
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 mongoose.set('strictQuery', true);
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, w: "majority" });

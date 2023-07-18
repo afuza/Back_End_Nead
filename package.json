@@ -1,6 +1,6 @@
 {
   "name": "back_end_nead",
-  "version": "1.0.0",
+  "version": "0.4.0",
   "description": "Back_Trick",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,7 @@
   "author": "natama",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.370.0",
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",

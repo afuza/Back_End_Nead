@@ -19,5 +19,4 @@ const AuthData = new mongoose.Schema({
     timestamps: true,
 });
 
-// export default mongoose.model("AuthData", AuthData);
 module.exports = mongoose.model("AuthData", AuthData);

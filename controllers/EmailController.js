@@ -1,6 +1,5 @@
+const { uploadFile, deleteFile, readFile } = require("../helpers/awsS3.js");
 const EmailData = require("../models/EmailModels.js");
-
-// import EmailData from "../models/EmailModels.js";
 
 const getEmail = async (req, res) => {
     try {
@@ -36,9 +35,17 @@ const updateEmail = async (req, res) => {
 
 const deleteEmail = async (req, res) => {
     const id = req.params.id;
+    const getData = await EmailData.findById(id);
+    const urlImg = getData.ss;
+    const key = urlImg.split('/').pop();
     try {
-        const deletedEmail = await EmailData.findByIdAndDelete(id);
-        res.status(200).json({ message: "Email deleted successfully" });
+        const delkey = await deleteFile(key);
+        const delemail = await EmailData.findByIdAndDelete(id);
+        res.status(200).json({
+            message: "Email deleted successfully",
+            delkey,
+            delemail
+        });
     } catch (error) {
         res.status(404).json({ message: error.message });
     }

@@ -2,10 +2,6 @@ const AtuhData = require('../models/AuthModels.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-// import AtuhData from '../models/AuthModels.js';
-// import bcrypt from 'bcrypt';
-// import jwt from 'jsonwebtoken';
-
 const getAuth = async (req, res) => {
     try {
         const authData = await AtuhData.find();
@@ -38,7 +34,7 @@ const login = async (req, res) => {
             usernameid,
             name,
         }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: 60000,
+            expiresIn: 30000,
         });
         const refreshToken = jwt.sign({
             usernameid,
@@ -119,7 +115,7 @@ const refresh_Token = async (req, res,) => {
                 },
                 process.env.ACCESS_TOKEN_SECRET,
                 {
-                    expiresIn: 60000,
+                    expiresIn: 30000,
                 }
             );
             res.json({ accessToken });
