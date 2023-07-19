@@ -9,34 +9,50 @@ const SitusRoute = require("./routes/SitusRoute.js");
 const BlogRoute = require("./routes/BlogRoute.js");
 const AuthRoute = require("./routes/AuthRoute.js");
 
-
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 mongoose.set('strictQuery', true);
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, w: "majority" });
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-
-db.once('open', () => {
-    console.log(`Connected to MongoDB`);
-}
-);
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    w: "majority"
+})
+    .then(() => {
+        console.log("Connected to MongoDB");
+    })
+    .catch(error => {
+        console.error("MongoDB connection error:", error);
+    });
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors({ origin: process.env.DOMAIN_ORIGIN, credentials: true }));
-app.use(
-    EmailRoute,
-    SitusRoute,
-    BlogRoute,
-    AuthRoute
-);
+app.use(cors({ origin: process.env.DOMAIN_ORIGIN, credentials: true, exposedHeaders: ['Set-Cookie'] }));
+
+// Routes
+app.use(EmailRoute);
+app.use(SitusRoute);
+app.use(BlogRoute);
+app.use(AuthRoute);
+
+// Error handling middleware
+app.use((req, res, next) => {
+    const error = new Error("Not Found");
+    error.status = 404;
+    next(error);
+});
+
+app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            message: error.message
+        }
+    });
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-}
-);
+});

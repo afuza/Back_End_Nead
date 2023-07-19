@@ -40,12 +40,15 @@ const deleteEmail = async (req, res) => {
     const key = urlImg.split('/').pop();
     try {
         const delkey = await deleteFile(key);
-        const delemail = await EmailData.findByIdAndDelete(id);
-        res.status(200).json({
-            message: "Email deleted successfully",
-            delkey,
-            delemail
-        });
+        const httpStatusCode = delkey.$metadata.httpStatusCode.toString();
+        if (httpStatusCode == 204) {
+            await EmailData.findByIdAndDelete(id);
+            res.status(200).json({
+                message: "Email deleted successfully",
+            });
+        } else {
+            res.status(404).json({ message: "Failed to delete email" });
+        }
     } catch (error) {
         res.status(404).json({ message: error.message });
     }

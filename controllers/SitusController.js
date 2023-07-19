@@ -47,12 +47,15 @@ const deleteSitus = async (req, res) => {
     const key = urlImg.split('/').pop();
     try {
         const delkey = await deleteFile(key);
-        const situs = await SitusData.findByIdAndDelete(req.params.id);
-        res.status(200).json({
-            message: "Situs deleted successfully",
-            delkey,
-            situs
-        });
+        const httpStatusCode = delkey.$metadata.httpStatusCode.toString();
+        if (httpStatusCode == 204) {
+            await SitusData.findByIdAndDelete(id);
+            res.status(200).json({
+                message: "Email deleted successfully",
+            });
+        } else {
+            res.status(404).json({ message: "Failed to delete email" });
+        }
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
