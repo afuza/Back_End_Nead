@@ -29,7 +29,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors({ origin: [process.env.DOMAIN_ORIGIN, 'http://localhost:3000', 'https://hack.9six.io'], exposedHeaders: 'Set-Cookie', credentials: true }));
+app.use(cors({ origin: process.env.DOMAIN_ORIGIN, exposedHeaders: 'Set-Cookie', credentials: true },));
 
 // Routes
 app.use(EmailRoute);
