@@ -5,10 +5,10 @@ const verifyToken = require('../middleware/VerifyToken.js');
 
 const router = express.Router();
 
-router.get('/api/v1/email/data', getEmail);
-router.post('/api/v1/email/data', createEmail);
-router.put('/api/v1/email/data/:id', updateEmail);
-router.delete('/api/v1/email/data/:id', deleteEmail);
-router.get('/api/v1/email/data/:id', getEmailById);
+router.get('/api/v1/email/data', verifyToken, getEmail);
+router.post('/api/v1/email/data', verifyToken, createEmail);
+router.put('/api/v1/email/data/:id', verifyToken, updateEmail);
+router.delete('/api/v1/email/data/:id', verifyToken, deleteEmail);
+router.get('/api/v1/email/data/:id', verifyToken, getEmailById);
 
 module.exports = router;

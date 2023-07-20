@@ -5,10 +5,10 @@ const verifyToken = require('../middleware/VerifyToken.js');
 
 const router = express.Router();
 
-router.get('/api/v1/situs/data', getSitus);
-router.post('/api/v1/situs/data', createSitus);
-router.put('/api/v1/situs/data/:id', updateSitus);
-router.delete('/api/v1/situs/data/:id', deleteSitus);
-router.get('/api/v1/situs/data/:id', getSitusById);
+router.get('/api/v1/situs/data', verifyToken, getSitus);
+router.post('/api/v1/situs/data', verifyToken, createSitus);
+router.put('/api/v1/situs/data/:id', verifyToken, updateSitus);
+router.delete('/api/v1/situs/data/:id', verifyToken, deleteSitus);
+router.get('/api/v1/situs/data/:id', verifyToken, getSitusById);
 
 module.exports = router;

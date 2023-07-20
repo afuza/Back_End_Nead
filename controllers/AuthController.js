@@ -3,11 +3,23 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const getAuth = async (req, res) => {
+
     try {
         const authData = await AtuhData.find();
         res.status(200).json(authData);
     } catch (error) {
-        res.status(404).json({ message: error.message });
+        res.status(204).json({ message: error.message });
+    }
+};
+
+
+const getAuthByUsername = async (req, res) => {
+    try {
+        const { username } = req.body;
+        const authData = await AtuhData.findOne({ username });
+        res.status(200).json(authData);
+    } catch (error) {
+        res.status(204).json({ message: error.message });
     }
 };
 
@@ -17,13 +29,13 @@ const login = async (req, res) => {
         const { email, password } = req.body;
         const user = await AtuhData.findOne({ email });
         if (!user) {
-            return res.status(401).json({
+            return res.status(204).json({
                 message: 'Invalid Credentials'
             });
         }
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(401).json({
+            return res.status(204).json({
                 message: 'Invalid Credentials'
             });
         }
@@ -118,7 +130,7 @@ const refresh_Token = async (req, res,) => {
                     expiresIn: 30000,
                 }
             );
-            res.json({ accessToken });
+            res.status(200).json({ accessToken });
         }
         );
     } catch (error) {
@@ -126,4 +138,4 @@ const refresh_Token = async (req, res,) => {
     }
 };
 
-module.exports = { getAuth, login, register, logout, refresh_Token };
+module.exports = { getAuth, login, register, logout, refresh_Token, getAuthByUsername };
