@@ -29,7 +29,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors({ origin: process.env.DOMAIN_ORIGIN, exposedHeaders: 'Set-Cookie', credentials: true },));
+app.use(cors({ credentials: true, origin: process.env.DOMAIN_ORIGIN }));
 
 // Routes
 app.use(EmailRoute);
