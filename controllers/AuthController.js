@@ -29,13 +29,13 @@ const login = async (req, res) => {
         const { email, password } = req.body;
         const user = await AtuhData.findOne({ email });
         if (!user) {
-            return res.status(204).json({
+            return res.status(200).json({
                 message: 'Invalid Credentials'
             });
         }
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(204).json({
+            return res.status(200).json({
                 message: 'Invalid Credentials'
             });
         }
